@@ -1,0 +1,4 @@
+2	Alice	HR	45000.00	2026-07-29	NULL
+
+                3	Bob	Finance	50000.00	2026-07-28	NULL
+  
