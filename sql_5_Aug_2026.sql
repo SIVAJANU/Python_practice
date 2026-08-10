@@ -28,14 +28,15 @@ VALUES
 --DB also proviode the security and any time access to data to the authorised users alone
 --Databases have multiple objects (Tables, Views, Procedures, Functions etc)
 -- Count employees
-SELECT COUNT(*) AS TotalEmployees FROM Employee;
+SELECT count(*)  FROM Employee; 1L profit   10 50000 =50k
 
 -- Sum of salaries
 SELECT SUM(Salary) AS TotalSalary FROM Employee;
 
 -- Average salary
 SELECT AVG(Salary) AS AverageSalary, SUM(Salary) AS TotalSalary FROM Employee;
-SELECT 1041008.00/19 --54789.894736 --->54789.894736
+SELECT 1041008.00/19;--54789.894736 --->54789.894736
+SELECT 'Siva' + ' ' + 'Kumar' AS FullName;
 
 -- Maximum salary
 SELECT MAX(Salary) AS HighestSalary FROM Employee;
@@ -46,7 +47,7 @@ SELECT MIN(Salary) AS LowestSalary FROM Employee;
 
 --- Scalar Functions
 -- Convert names to uppercase
-SELECT EmpName, UPPER(EmpName) AS UpperName FROM Employee;
+SELECT EmpName, UPPER(EmpName) AS UpperName, LOWER(EmpName) AS LowerName FROM Employee;
 
 -- Convert names to lowercase
 SELECT EmpName, LOWER(EmpName) AS LowerName FROM Employee;
@@ -55,22 +56,40 @@ SELECT EmpName, LOWER(EmpName) AS LowerName FROM Employee;
 SELECT EmpName, LEN(EmpName) AS NameLength FROM Employee;
 
 -- Round salary to nearest thousand
-SELECT EmpName, ROUND(Salary, -3) AS RoundedSalary FROM Employee;
+SELECT EmpName, SALARY, ROUND(Salary, -3) AS RoundedSalary FROM Employee;
 
 --- Get the current date and time
 SELECT GETDATE() AS CurrentDateTime;
 
 -- Current date & time
-SELECT GETDATE() AS CurrentDateTime;
+SELECT YEAR(GETDATE()) AS YEAR_, MONTH(GETDATE()) MONTH_;
+
+SELECT 
+    GETDATE() AS [GetDate], 
+    SYSDATETIME() AS [SysDateTime],
+    CURRENT_TIMESTAMP AS [CurrentTimestamp],
+    GETUTCDATE() AS [UTC_Time];
+
+
+
+-- Subtract 10 days from today
+SELECT DATEADD(day, -10, GETDATE());
+
+-- Calculate days between two dates (Result: 9)
+SELECT DATEDIFF(day, '2026-08-01', '2026-08-10');
+
+-- Get the last day of the current month
+SELECT EOMONTH(GETDATE());
 
 -- Add 1 year to hire date
-SELECT EmpName, DATEADD(YEAR, 1, HireDate) AS NextYearAnniversary FROM Employee;
-
+SELECT EmpName, HireDate,DATEADD(YEAR, 1, HireDate) AS NextYearAnniversary FROM Employee;
+-- Add 3 months to today
+SELECT DATEADD(month, 3, GETDATE()) as quater_later_date;
 -- Difference in years between hire date and today
 SELECT EmpName, DATEDIFF(YEAR, HireDate, GETDATE()) AS YearsWorked FROM Employee;
 
 --- Get the first 3 characters of employee names
-SELECT EmpName, LEFT(EmpName, 3) AS FirstThreeChars FROM Employee;
+SELECT EmpName, LEFT(EmpName, 3) AS FirstThreeChars, RIGHT(EmpName, 3) AS LastThreeChars FROM Employee;
 
 -- Cast salary to integer
 SELECT EmpName, CAST(Salary AS INT) AS SalaryInt FROM Employee;
