@@ -28,6 +28,7 @@ VALUES
 
 
 
+
 CREATE VIEW table_view1
 AS
 (SELECT * FROM Employee_new1 
