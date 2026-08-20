@@ -1,0 +1,10 @@
+{
+  "name": "Alice",
+  "age": 28,
+  "city": "Delhi",
+  "skills": [
+    "Python",
+    "SQL",
+    "Power BI"
+  ]
+}
