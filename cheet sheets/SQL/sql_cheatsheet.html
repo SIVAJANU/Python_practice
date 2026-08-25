@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Basics to Advanced Cheat Sheet</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #ffffff;
+      --primary: #2563eb;
+      --secondary: #1d4ed8;
+      --accent: #dbeafe;
+      --text: #0f172a;
+      --muted: #475569;
+      --green: #166534;
+      --line: #dbe3f0;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 28px auto;
+      padding: 0 18px 40px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0f172a, #2563eb 65%, #3b82f6);
+      border-radius: 18px;
+      padding: 30px 28px;
+      color: #fff;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .header p {
+      margin: 0;
+      font-size: 1.06rem;
+      opacity: 0.94;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 18px 18px 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      color: var(--secondary);
+      font-size: 1.35rem;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .card li {
+      margin-bottom: 7px;
+      color: var(--muted);
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 20px 10px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+      color: var(--secondary);
+      font-size: clamp(1.4rem, 2vw, 2rem);
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .topic-box {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .topic-box h3 {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-size: 1.07rem;
+    }
+
+    .topic-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .topic-box li {
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    code, pre {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .code-block {
+      background: #0f172a;
+      color: #dbeafe;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      border: 1px solid rgba(148,163,184,0.25);
+    }
+
+    .note {
+      margin-top: 14px;
+      padding: 10px 12px;
+      background: #eff6ff;
+      color: #1e3a8a;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding: 0 12px 25px;
+      }
+      .header {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="badge">SQL Cheat Sheet</div>
+      <h1>SQL Basics to Advanced</h1>
+      <p>Quick-reference guide for SQL essentials, joins, subqueries, transactions, performance tuning, and real-world database practices.</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>1. SQL Basics</h2>
+        <ul>
+          <li>SQL stands for Structured Query Language.</li>
+          <li>Categories: DDL, DML, DQL, DCL, TCL.</li>
+          <li>Core concepts: database, schema, table, row, column.</li>
+          <li>Common data types: INT, VARCHAR, DATE, DECIMAL, BOOLEAN.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>2. Database Creation</h2>
+        <ul>
+          <li>Create a database.</li>
+          <li>Create/drop tables with schema definitions.</li>
+          <li>Use ALTER to modify structure.</li>
+        </ul>
+        <div class="code-block">CREATE DATABASE company_db;
+USE company_db;
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary DECIMAL(10,2)
+);</div>
+      </div>
+
+      <div class="card">
+        <h2>3. Data Types</h2>
+        <ul>
+          <li>INT / BIGINT</li>
+          <li>VARCHAR / CHAR</li>
+          <li>DATE / DATETIME / TIMESTAMP</li>
+          <li>DECIMAL / FLOAT</li>
+        </ul>
+      </div>
+    </div>
+
+    <section class="section">
+      <h2>DDL: Data Definition Language</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>CREATE TABLE</h3>
+          <ul>
+            <li>Defines a table structure.</li>
+            <li>Includes columns and constraints.</li>
+          </ul>
+          <div class="code-block">CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    city VARCHAR(50)
+);</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>ALTER TABLE</h3>
+          <ul>
+            <li>Add or drop columns.</li>
+            <li>Modify column properties.</li>
+          </ul>
+          <div class="code-block">ALTER TABLE customers
+ADD email VARCHAR(100);
+
+ALTER TABLE customers
+DROP COLUMN email;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>DROP TABLE / TRUNCATE</h3>
+          <ul>
+            <li><code>DROP TABLE</code> removes the table definition and data.</li>
+            <li><code>TRUNCATE</code> removes all rows but keeps the table.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>DML: Data Manipulation Language</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>INSERT</h3>
+          <div class="code-block">INSERT INTO employees (id, name, salary)
+VALUES (1, 'Alice', 50000);</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>UPDATE</h3>
+          <div class="code-block">UPDATE employees
+SET salary = 55000
+WHERE id = 1;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>DELETE</h3>
+          <div class="code-block">DELETE FROM employees
+WHERE id = 1;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Bulk Insert</h3>
+          <ul>
+            <li>Used to load many rows quickly.</li>
+            <li>Common in ETL and data loading tasks.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>DQL: Data Query Language</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>SELECT Basics</h3>
+          <div class="code-block">SELECT * FROM employees;
+SELECT name, salary FROM employees;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>WHERE Clause</h3>
+          <div class="code-block">SELECT * FROM employees
+WHERE salary > 50000;
+
+SELECT * FROM employees
+WHERE city IN ('Delhi', 'Mumbai');</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Operators</h3>
+          <ul>
+            <li>=, &lt;, &gt;, &lt;=, &gt;=</li>
+            <li>BETWEEN</li>
+            <li>LIKE</li>
+            <li>IN</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Sorting & Filtering</h3>
+          <div class="code-block">SELECT DISTINCT city FROM employees;
+SELECT * FROM employees
+ORDER BY salary DESC;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Aliases</h3>
+          <div class="code-block">SELECT name AS employee_name,
+       salary AS annual_salary
+FROM employees;</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Functions</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Aggregate Functions</h3>
+          <ul>
+            <li><code>COUNT()</code></li>
+            <li><code>SUM()</code></li>
+            <li><code>AVG()</code></li>
+            <li><code>MAX()</code></li>
+            <li><code>MIN()</code></li>
+          </ul>
+          <div class="code-block">SELECT COUNT(*) FROM employees;
+SELECT AVG(salary) FROM employees;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Scalar Functions</h3>
+          <ul>
+            <li><code>UPPER()</code>, <code>LOWER()</code></li>
+            <li><code>LEN()</code>, <code>ROUND()</code></li>
+            <li>String and numeric transformations.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Date Functions</h3>
+          <ul>
+            <li><code>NOW()</code></li>
+            <li><code>DATEADD()</code></li>
+            <li><code>DATEDIFF()</code></li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Conversion Functions</h3>
+          <ul>
+            <li><code>CAST()</code></li>
+            <li><code>CONVERT()</code></li>
+            <li>Used to convert between data types.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Joins</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>INNER JOIN</h3>
+          <ul>
+            <li>Returns only matching rows.</li>
+          </ul>
+          <div class="code-block">SELECT o.order_id, c.name
+FROM orders o
+INNER JOIN customers c ON o.customer_id = c.customer_id;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>LEFT JOIN</h3>
+          <ul>
+            <li>Returns all left table rows and matching right rows.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>RIGHT JOIN</h3>
+          <ul>
+            <li>Returns all right table rows and matching left rows.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>FULL OUTER JOIN</h3>
+          <ul>
+            <li>Returns all rows from both tables.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>SELF JOIN</h3>
+          <ul>
+            <li>A table joins with itself.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>CROSS JOIN</h3>
+          <ul>
+            <li>Produces the Cartesian product.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Constraints</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Primary Key</h3>
+          <ul><li>Uniquely identifies each row.</li></ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Foreign Key</h3>
+          <ul><li>Links one table to another.</li></ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>UNIQUE</h3>
+          <ul><li>Ensures all values are distinct.</li></ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>NOT NULL</h3>
+          <ul><li>Prevents null values.</li></ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>CHECK</h3>
+          <ul><li>Limits values based on a condition.</li></ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>DEFAULT</h3>
+          <ul><li>Assigns a default value when not specified.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Subqueries and Set Operations</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Subqueries</h3>
+          <ul>
+            <li>Single-row subqueries</li>
+            <li>Multi-row subqueries with IN / ANY / ALL</li>
+            <li>Correlated subqueries</li>
+            <li><code>EXISTS</code> check</li>
+          </ul>
+          <div class="code-block">SELECT * FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Set Operations</h3>
+          <ul>
+            <li><code>UNION</code> / <code>UNION ALL</code></li>
+            <li><code>INTERSECT</code></li>
+            <li><code>EXCEPT</code> / <code>MINUS</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Indexes, Views, and Procedures</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Indexes</h3>
+          <ul>
+            <li>Clustered vs Non-clustered</li>
+            <li>Create and drop indexes</li>
+            <li>Improves query performance</li>
+          </ul>
+          <div class="code-block">CREATE INDEX idx_emp_name ON employees(name);</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Views</h3>
+          <ul>
+            <li><code>CREATE VIEW</code></li>
+            <li>Update and drop views</li>
+            <li>Materialized views in some databases</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Stored Procedures & Functions</h3>
+          <ul>
+            <li><code>CREATE PROCEDURE</code></li>
+            <li><code>IN</code> and <code>OUT</code> parameters</li>
+            <li>User-defined functions (UDFs)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Triggers and Transactions</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Triggers</h3>
+          <ul>
+            <li>BEFORE / AFTER triggers</li>
+            <li>Row-level vs statement-level</li>
+            <li>Use cases: audit log, validation</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Transactions</h3>
+          <ul>
+            <li><code>BEGIN</code> / <code>START TRANSACTION</code></li>
+            <li><code>COMMIT</code></li>
+            <li><code>ROLLBACK</code></li>
+            <li><code>SAVEPOINT</code></li>
+            <li>ACID properties</li>
+          </ul>
+          <div class="code-block">START TRANSACTION;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Advanced SQL</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Window Functions</h3>
+          <ul>
+            <li><code>ROW_NUMBER()</code></li>
+            <li><code>RANK()</code></li>
+            <li><code>DENSE_RANK()</code></li>
+            <li><code>NTILE()</code></li>
+          </ul>
+          <div class="code-block">SELECT name, salary,
+       ROW_NUMBER() OVER (ORDER BY salary DESC) AS rn
+FROM employees;</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>CTE</h3>
+          <ul>
+            <li>Common Table Expressions using <code>WITH</code></li>
+            <li>Recursive CTEs supported in some databases</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Pivot / Unpivot</h3>
+          <ul>
+            <li>Rotate rows into columns.</li>
+            <li>Useful in reporting and analytics.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Dynamic SQL</h3>
+          <ul>
+            <li>Build SQL queries at runtime.</li>
+            <li>Useful for flexible reports or automation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Performance Tuning and Security</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Performance Tuning</h3>
+          <ul>
+            <li>Query execution plans</li>
+            <li>Index optimization</li>
+            <li>Joins vs subqueries</li>
+            <li>Normalization and denormalization</li>
+            <li>Partitioning and sharding</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Security & Access Control</h3>
+          <ul>
+            <li>Roles and permissions</li>
+            <li><code>GRANT</code> and <code>REVOKE</code></li>
+            <li>SQL injection prevention</li>
+            <li>Encryption concepts</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Industry Use Cases</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Reporting</h3>
+          <ul>
+            <li>Sales reports</li>
+            <li>Finance analysis</li>
+            <li>HR summaries</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Data Cleaning</h3>
+          <ul>
+            <li>Remove duplicates</li>
+            <li>Standardize formats</li>
+            <li>Handle nulls</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>ETL Support</h3>
+          <ul>
+            <li>Transform and aggregate source data</li>
+            <li>Load into reporting tables</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Analytics Queries</h3>
+          <ul>
+            <li>Trend reporting</li>
+            <li>Customer segmentation</li>
+            <li>Operational dashboards</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">This HTML is a structured cheat sheet based on the brochure PDF and is meant for quick reference and revision.</div>
+    </section>
+  </div>
+</body>
+</html>

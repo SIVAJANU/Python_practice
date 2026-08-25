@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Basics to Advanced Cheat Sheet</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2b;
+      --panel-2: #1a2540;
+      --card: #f8fafc;
+      --primary: #4f46e5;
+      --primary-2: #818cf8;
+      --accent: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #e2e8f0;
+      --muted: #a5b4cf;
+      --dark-text: #0f172a;
+      --line: rgba(148, 163, 184, 0.22);
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 18px 50px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1d4ed8, #4f46e5 55%, #8b5cf6);
+      border-radius: 18px;
+      padding: 28px 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .header p {
+      margin: 0;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.04rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: rgba(18, 26, 43, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2, .card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 7px;
+      color: var(--muted);
+    }
+
+    code, pre {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .code-block {
+      background: #0f172a;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      color: #dbeafe;
+      font-size: 0.92rem;
+      margin-top: 10px;
+    }
+
+    .section {
+      background: rgba(18, 26, 43, 0.95);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 20px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.4rem, 2vw, 2.1rem);
+      color: #ffffff;
+      letter-spacing: -0.03em;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .topic-box {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 16px 12px;
+    }
+
+    .topic-box h3 {
+      margin: 0 0 10px;
+      color: #c7d2fe;
+      font-size: 1.05rem;
+    }
+
+    .topic-box ul {
+      margin: 0;
+    }
+
+    .topic-box li {
+      color: #dfe7f3;
+      margin-bottom: 6px;
+    }
+
+    .small-note {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-top: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 6px;
+      background: rgba(79, 70, 229, 0.18);
+      color: #c7d2fe;
+      border: 1px solid rgba(129, 140, 248, 0.25);
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .header {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="badge">Python Cheat Sheet</div>
+      <h1>Python Basics to Advanced</h1>
+      <p>Quick reference guide based on the Python brochure PDF covering core syntax, OOP, data structures, modules, and advanced concepts.</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>1. Python Basics</h2>
+        <ul>
+          <li>Python is easy to read and widely used for automation, app development, AI, and data work.</li>
+          <li>Run scripts using IDLE, VS Code, or Jupyter Notebook.</li>
+          <li>Use variables and data types: <strong>int, float, str, bool</strong>.</li>
+          <li>Use <code>input()</code> for user input and <code>print()</code> for output.</li>
+        </ul>
+        <div class="code-block">
+name = "Python"<br>
+age = 25<br>price = 99.99<br>is_active = True<br><br>print(name, age, price, is_active)<br>user = input("Enter your name: ")
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Operators</h2>
+        <ul>
+          <li>Arithmetic: <code>+, -, *, /, %, **</code></li>
+          <li>Relational: <code>==, !=, &gt;, &lt;, &gt;=, &lt;=</code></li>
+          <li>Logical: <code>and, or, not</code></li>
+          <li>Assignment: <code>=, +=, -=, *=</code></li>
+          <li>Identity and membership: <code>is, in, not in</code></li>
+        </ul>
+        <div class="code-block">
+print(5 + 3)<br>print(10 &gt; 7 and 2 &lt; 5)<br>print("a" in "apple")
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Control Flow</h2>
+        <ul>
+          <li>Conditional statements: <code>if, elif, else</code></li>
+          <li>Loops: <code>for</code> and <code>while</code></li>
+          <li>Loop control: <code>break, continue, pass</code></li>
+          <li>Nested loops are supported.</li>
+          <li>Comprehensions: list, dict, set</li>
+        </ul>
+        <div class="code-block">
+for i in range(1, 6):<br>    if i % 2 == 0:<br>        print(i, "even")<br>    else:<br>        print(i, "odd")
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+      <h2>Core Data Structures</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Strings</h3>
+          <ul>
+            <li>Immutable sequence of characters.</li>
+            <li>Useful methods: <code>upper(), lower(), split(), strip(), replace()</code>.</li>
+            <li>Indexing and slicing supported.</li>
+          </ul>
+          <div class="code-block">s = "python"<br>print(s[0])<br>print(s[1:4])</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Lists</h3>
+          <ul>
+            <li>Mutable ordered collection.</li>
+            <li>Methods: <code>append(), pop(), sort(), reverse(), extend()</code>.</li>
+            <li>Supports indexing and slicing.</li>
+          </ul>
+          <div class="code-block">nums = [1, 2, 3]<br>nums.append(4)<br>print(nums)</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Tuples</h3>
+          <ul>
+            <li>Immutable sequence.</li>
+            <li>Used when values should not change.</li>
+          </ul>
+          <div class="code-block">point = (10, 20)<br>print(point[0])</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Sets</h3>
+          <ul>
+            <li>Stores unique values.</li>
+            <li>Useful for unions, intersections, differences.</li>
+          </ul>
+          <div class="code-block">a = {1, 2, 3}<br>b = {3, 4, 5}<br>print(a | b)</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Dictionaries</h3>
+          <ul>
+            <li>Key-value pairs.</li>
+            <li>Methods: <code>keys(), values(), items(), get()</code>.</li>
+          </ul>
+          <div class="code-block">student = {"name": "Amit", "age": 22}<br>print(student["name"])</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Stacks and Queues</h3>
+          <ul>
+            <li>List can be used for stack behavior.</li>
+            <li><code>collections.deque</code> is useful for queues.</li>
+          </ul>
+          <div class="code-block">from collections import deque<br>q = deque([1, 2, 3])<br>q.append(4)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Functions, Modules, and Packages</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Functions</h3>
+          <ul>
+            <li>Define using <code>def</code>.</li>
+            <li>Parameters, return values, default args, keyword args.</li>
+            <li>Variable-length args: <code>*args, **kwargs</code>.</li>
+            <li>Lambda functions are concise one-line functions.</li>
+          </ul>
+          <div class="code-block">def add(a, b=0):
+    return a + b
+
+print(add(5))
+print(add(5, 10))</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Scopes</h3>
+          <ul>
+            <li>Local scope</li>
+            <li>Global scope</li>
+            <li><code>nonlocal</code> scope inside nested functions</li>
+          </ul>
+          <div class="code-block">x = 10
+
+def demo():
+    global x
+    x = 20
+    return x</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Recursion</h3>
+          <ul>
+            <li>A function calls itself.</li>
+            <li>Need a base condition to stop.</li>
+          </ul>
+          <div class="code-block">def fact(n):
+    if n == 0:
+        return 1
+    return n * fact(n - 1)</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Modules & Packages</h3>
+          <ul>
+            <li>Import built-ins such as <code>math, datetime, random, os, sys</code>.</li>
+            <li>Create your own modules.</li>
+            <li>Use <code>pip</code> to install external packages.</li>
+          </ul>
+          <div class="code-block">import math
+import datetime
+
+print(math.sqrt(16))</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>File Handling and Exceptions</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>File Operations</h3>
+          <ul>
+            <li><code>open()</code> reads and writes files.</li>
+            <li>Modes: <code>r, w, a, rb, wb</code>.</li>
+            <li>Use <code>with open() as f:</code> for safe file handling.</li>
+          </ul>
+          <div class="code-block">with open("sample.txt", "r") as f:
+    text = f.read()
+    print(text)</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Error Handling</h3>
+          <ul>
+            <li>Errors and exceptions are different.</li>
+            <li>Use <code>try, except, else, finally</code>.</li>
+            <li>Use <code>raise</code> to trigger an exception.</li>
+            <li>Custom exceptions can be created.</li>
+          </ul>
+          <div class="code-block">try:
+    x = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+finally:
+    print("Cleanup complete")</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Object-Oriented Programming (OOP)</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Core OOP Concepts</h3>
+          <ul>
+            <li>Class and object</li>
+            <li><code>__init__</code> constructor</li>
+            <li>Instance, class, and static methods</li>
+            <li>Inheritance: single, multiple, multilevel</li>
+            <li>Polymorphism, encapsulation, abstraction</li>
+          </ul>
+          <div class="code-block">class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return "Sound"
+
+class Dog(Animal):
+    def speak(self):
+        return "Bark"</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Abstraction</h3>
+          <ul>
+            <li>Hide internal details and expose only necessary behavior.</li>
+            <li>Use <code>abc</code> module for abstract base classes.</li>
+          </ul>
+          <div class="code-block">from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Advanced Python</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Iterators & Generators</h3>
+          <ul>
+            <li>Use <code>yield</code> to create generators.</li>
+            <li>Generators are memory-efficient.</li>
+          </ul>
+          <div class="code-block">def squares(n):
+    for i in range(n):
+        yield i * i</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Decorators & Context Managers</h3>
+          <ul>
+            <li>Decorators modify behavior of functions.</li>
+            <li><code>with</code> makes context managers easy to use.</li>
+          </ul>
+          <div class="code-block">def decorator(fn):
+    def wrapper():
+        print("before")
+        fn()
+        print("after")
+    return wrapper</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Regular Expressions</h3>
+          <ul>
+            <li>Use <code>re</code> module for pattern matching.</li>
+            <li>Common operations: <code>match, search, findall</code>.</li>
+          </ul>
+          <div class="code-block">import re
+print(re.findall(r"\d+", "abc123def456"))</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Logging, Virtual Environments, Threads</h3>
+          <ul>
+            <li>Use <code>logging</code> for application logs.</li>
+            <li>Use <code>venv</code> to isolate environments.</li>
+            <li>Explore multithreading and multiprocessing.</li>
+            <li>Understand memory management and garbage collection.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Data Handling and Libraries</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>JSON & CSV</h3>
+          <ul>
+            <li>Use <code>json</code> for JSON files.</li>
+            <li>Use <code>csv</code> for CSV file handling.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>NumPy</h3>
+          <ul>
+            <li>For numerical arrays and vectorized calculations.</li>
+            <li>Very useful in data science and ML.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Pandas</h3>
+          <ul>
+            <li>For tabular data analysis.</li>
+            <li>Supports DataFrames and series operations.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Matplotlib</h3>
+          <ul>
+            <li>For visual data representation.</li>
+            <li>Create charts and graphs for EDA.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Specialized Topics</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Functional Programming</h3>
+          <ul>
+            <li><code>map()</code>, <code>filter()</code>, <code>reduce()</code></li>
+            <li><code>functools</code> utilities</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Date & Time</h3>
+          <ul>
+            <li>Use <code>datetime</code> and <code>time</code> modules.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>OS & Web</h3>
+          <ul>
+            <li><code>os</code>, <code>shutil</code>, <code>subprocess</code></li>
+            <li>HTTP requests with <code>requests</code></li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Testing</h3>
+          <ul>
+            <li><code>unittest</code> and <code>pytest</code></li>
+            <li>Write tests for repeatable validation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Expert-Level Topics</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>AsyncIO</h3>
+          <ul>
+            <li>Asynchronous programming using <code>async</code> and <code>await</code>.</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Optimization & Design Patterns</h3>
+          <ul>
+            <li>Memory optimization techniques</li>
+            <li>Common design patterns in Python</li>
+          </ul>
+        </div>
+
+        <div class="topic-box">
+          <h3>Type Hinting</h3>
+          <ul>
+            <li>Use <code>typing</code> to make code clearer and safer.</li>
+          </ul>
+          <div class="code-block">from typing import List
+
+def add_numbers(nums: List[int]) -> int:
+    return sum(nums)</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Packaging & Deployment</h3>
+          <ul>
+            <li>Create packages with <code>setup.py</code>.</li>
+            <li>Install via <code>pip install</code>.</li>
+            <li>Deploy Python projects with proper packaging practices.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Quick Reference Commands</h2>
+      <div class="topic-grid">
+        <div class="topic-box">
+          <h3>Environment Setup</h3>
+          <div class="code-block">python -m venv venv<br>venv\Scripts\activate<br>pip install package_name</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Run a Script</h3>
+          <div class="code-block">python app.py</div>
+        </div>
+
+        <div class="topic-box">
+          <h3>Package Check</h3>
+          <div class="code-block">pip list<br>pip freeze</div>
+        </div>
+      </div>
+      <div class="small-note">This cheat sheet is a structured summary of the PDF brochure and should be used as a quick reference for learning and revision.</div>
+    </section>
+  </div>
+</body>
+</html>
